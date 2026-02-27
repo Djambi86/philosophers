@@ -1,0 +1,27 @@
+Philosophers - threads
+	:	Firstly it is important to note, that a pc only has 1 operating system/concurency. That means, it jumps around each app/programm/functions
+		and doesn't do them at the same time. But it does it so quick, that it looks like it DOES do it at the same time.
+		So say, if we have too many programms/operations, then we will see the speed tank, cause it runs all of them one by one.
+		That is where threads come in. With them you can run functions separately and in parallel, instead of one by one. And also threads work well,
+		cause they have their own stack, so in that way, they won't overwrite the stack of another function/thread.
+		
+		!!!It is important to mention, because of the parallel function activation and return, that it can cause a "race" condition.
+		
+		What does a "race condition" mean? When does it occur? 
+		It means when a function uses or accesses a shared variable, it might change that variable incorrectly
+		before it can be returned. 
+		It occurs when a program depends on the timing of one or more events to function correclty.
+		Say when you change the balance of your bank account. One thread calls for the change of the balance "+200" the other "+300".
+		Because the functions runs parallel, before the first thread can return the incremented balance of 200, the other thread returned 300.
+		So our balance stays 300, instead of 200+300=500.
+		
+		So how do we fix/avoid that? By using mutex, because mutex essentially locks the second thread, so that the first thread can finish its execution.
+		The thread which is locked, depends on which one of the threads was the "first" at the function.
+		
+		
+		-	Variables that a thread needs: those or that would be "pthread_t (name);" -> with that we can differentiate the threads through
+		pthread_create() function call.
+
+	-	Threads is a way to activate and or use multiple functions at the same time, as far as I understood it.
+		but you also need to join them together at the end, so that the result of the functions come to light.
+		
