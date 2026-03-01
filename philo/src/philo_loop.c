@@ -12,23 +12,10 @@
 
 #include "../include/philosophers.h"
 
-// create a function where philos call the fork function through thread and also mutex it, so that 1 fork is left untouched
-int atol(char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-	{
-		
-
-	}
-
-}
-
 //initialize the integers with atol or something
-void initialize_philos(void)
+/*void initialize_philos(t_philo *philo)
 {
-		
 
-}
+
+}*/
+

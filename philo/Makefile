@@ -14,7 +14,7 @@ NAME = philosophers
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRC = philosophers.c src/philo_loop.c
+SRC = philosophers.c src/philo_loop.c src/init_num.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

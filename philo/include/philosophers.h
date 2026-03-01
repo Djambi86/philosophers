@@ -17,23 +17,32 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <limits.h>
 
 typedef struct s_philo
 {
-	int *philosophers;
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
-	int philosophers_idx;
+	long long	*philosophers;
+	long long	number_of_philosophers;
+	long long	time_to_die;
+	long long	time_to_eat;
+	long long	time_to_sleep;
+	long long	number_of_times_each_philosopher_must_eat;
+	long long	philosophers_idx;
 }	t_philo;
 
 typedef struct s_table
 {
-	int *fork;
-	int fork_idx;
+	long long *fork;
+	long long fork_idx;
 }	t_table;
 
+typedef struct s_threads
+{
+	pthread_t thread1;
+} t_threads;
+
+long long	ft_atol(char *s);
+int			ft_is_space(char c);
+int		init_philos(t_philo *philo, t_table *table, char **str_arr);
 #endif
 

@@ -9,7 +9,7 @@ Philosophers - threads
 		
 		What does a "race condition" mean? When does it occur? 
 		It means when a function uses or accesses a shared variable, it might change that variable incorrectly
-		before it can be returned. 
+		before it can be returned.
 		It occurs when a program depends on the timing of one or more events to function correclty.
 		Say when you change the balance of your bank account. One thread calls for the change of the balance "+200" the other "+300".
 		Because the functions runs parallel, before the first thread can return the incremented balance of 200, the other thread returned 300.
@@ -19,9 +19,16 @@ Philosophers - threads
 		The thread which is locked, depends on which one of the threads was the "first" at the function.
 		
 		
-		-	Variables that a thread needs: those or that would be "pthread_t (name);" -> with that we can differentiate the threads through
-		pthread_create() function call.
-
-	-	Threads is a way to activate and or use multiple functions at the same time, as far as I understood it.
-		but you also need to join them together at the end, so that the result of the functions come to light.
+		
+	*	Syntax -> Creating initializing and Variables:
+			- to use a pthread function we firstly need the library specific "variable type"
+		#	pthread_t [variable name];
+			- in which after we use the create and join function, so that it creates a thread, and joins multiple threads
+		#	int pthread_create(pthread_t *th, const pthread_attr_t *attr, void *(*func)(void *), void *arg);
+			|
+			.(pthread_t *th = &thread1) - > here you just pass the thread variable created earlier
+			.(const pthread_attr_t = NULL) - > have no idea what this means, will learn later, but for now NULL is always ok
+			.(void *(*func)(void *) = philo) - > this is where you put your function in, which you run in threads or whatever
+			.(void *arg = NULL) = here you can put in the a arg for your philo function if you want to, but NULL also works
+			|
 		

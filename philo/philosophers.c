@@ -21,7 +21,7 @@
 	int	number_of_times_each_philosopher_must_eat;
 */
 
-void what_args_needed(void)
+static void what_args_needed(void)
 {
 	printf("Incorrect number of arguments, please give me:\n");
 	printf("number_of_philosophers\ntime_to_die\ntime_to_eat\n");
@@ -36,6 +36,13 @@ int main(int argc, char **argv)
 		what_args_needed();
 		return (1);
 	}
-	printf("%s", argv[1]);	
+	// t_philo philo;
+	t_philo philo;
+	t_table table;
+	if (!(init_philos(&philo, &table, argv)))
+		return (0);
+
+	//philo.number_of_philosophers = ft_atol(argv[1]);
+	printf("%lli", philo.number_of_philosophers);	
 	return 120;
 }
