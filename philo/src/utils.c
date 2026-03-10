@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/philosophers.h"
+#include "../include/philosophers.h"
 
 long long	get_time(void)
 {

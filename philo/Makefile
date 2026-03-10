@@ -16,10 +16,11 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -pthread
 
 SRCS	= philosophers.c \
-		  init_num.c \
-		  philo_loop.c \
-		  monitor.c \
-		  utils.c
+		  src/init_num.c \
+		  src/philo_loop.c \
+		  src/monitor.c \
+		  src/utils.c	\
+		  src/norm_hater.c
 
 OBJS	= $(SRCS:.c=.o)
 

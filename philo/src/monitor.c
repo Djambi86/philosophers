@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/philosophers.h"
+#include "../include/philosophers.h"
 
 static int	check_death(t_table *table, int i)
 {

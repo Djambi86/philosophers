@@ -10,19 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/philosophers.h"
-
-static int	is_dead_or_full(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->table->death_lock);
-	if (philo->table->someone_died || philo->table->all_ate)
-	{
-		pthread_mutex_unlock(&philo->table->death_lock);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->table->death_lock);
-	return (0);
-}
+#include "../include/philosophers.h"
 
 static void	take_forks(t_philo *philo, int left, int right)
 {

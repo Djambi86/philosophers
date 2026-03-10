@@ -10,36 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/philosophers.h"
-
-int	ft_is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == ' ')
-		return (1);
-	return (0);
-}
-
-static int	ft_is_sign(char *s, int *i)
-{
-	if (s[*i] == '-')
-	{
-		printf("Only positive numbers please!\n");
-		return (0);
-	}
-	if (s[*i] == '+')
-		(*i)++;
-	return (1);
-}
-
-static int	no_letters(char c)
-{
-	if (c < '0' || c > '9')
-	{
-		printf("No letters allowed!\n");
-		return (0);
-	}
-	return (1);
-}
+#include "../include/philosophers.h"
 
 long long	ft_atol(char *s)
 {
@@ -105,7 +76,7 @@ int	init_philos(t_table *table)
 	return (1);
 }
 
-int	init_table(t_table *table, int argc, char **argv)
+void	init_table_part2_dilogy(t_table *table, char **argv)
 {
 	table->num_philos = (int)ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]);
@@ -114,6 +85,11 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->must_eat = -1;
 	table->someone_died = 0;
 	table->all_ate = 0;
+}
+
+int	init_table(t_table *table, int argc, char **argv)
+{
+	init_table_part2_dilogy(table, argv);
 	if (argc == 6)
 		table->must_eat = (int)ft_atol(argv[5]);
 	if (table->num_philos <= 0 || table->time_to_die < 0

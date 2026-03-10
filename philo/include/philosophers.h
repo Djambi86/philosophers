@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:44 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/07 12:00:00 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:34:13 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,19 @@ typedef struct s_table
 	pthread_mutex_t	meal_lock;
 }	t_table;
 
+/*trash, hater, NormIsMyBiggestOP, ItShouldParish*/
+int			is_dead_or_full(t_philo *philo);
+int			no_letters(char c);
+int			ft_is_sign(char *s, int *i);
+int			ft_is_space(char c);
+
 /* init */
 int			init_table(t_table *table, int argc, char **argv);
 int			init_philos(t_table *table);
 int			init_forks(t_table *table);
+int			no_letters(char c);
+int			ft_is_sign(char *s, int *i);
+int			ft_is_space(char c);
 
 /* utils */
 long long	ft_atol(char *s);
@@ -67,11 +76,12 @@ long long	get_time(void);
 void		ft_usleep(long long ms);
 void		print_status(t_philo *philo, char *status);
 
-/* routine */
+/* loop */
 void		*philo_routine(void *arg);
 int			philo_eat(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_think(t_philo *philo);
+int			is_dead_or_full(t_philo *philo);
 
 /* monitor */
 void		*monitor_routine(void *arg);
