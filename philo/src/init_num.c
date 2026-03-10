@@ -6,82 +6,131 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:18:16 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/01 18:18:16 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/07 12:00:00 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosophers.h"
+#include "include/philosophers.h"
 
-// create a function where philos call the fork function through thread and also mutex it, so that 1 fork is left untouched
-int ft_is_space(char c)
+int	ft_is_space(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
-static int ft_is_negapositiv(char *s, int *i)
+static int	ft_is_sign(char *s, int *i)
 {
-	if (s[*i] == '-' || s[*i] == '+')
+	if (s[*i] == '-')
 	{
-		if (s[*i] == '-')
-		{
-			printf("Only positive numbers please, hoyoooooo!\n");
-			return (0);
-		}
-		(*i)++;
+		printf("Only positive numbers please!\n");
+		return (0);
 	}
-	if (s[*i] == '-' || s[*i] == '+')
+	if (s[*i] == '+')
+		(*i)++;
+	return (1);
+}
+
+static int	no_letters(char c)
+{
+	if (c < '0' || c > '9')
 	{
-			printf("Too many signs big boy, hoyoooooo!\n");
-			return (0);
+		printf("No letters allowed!\n");
+		return (0);
 	}
 	return (1);
 }
 
-long long ft_atol(char *s)
+long long	ft_atol(char *s)
 {
-	int i;
-	long long result;
-	int zero;
-	int digit;
+	int			i;
+	long long	result;
+	int			digit;
 
 	result = 0;
 	i = 0;
 	while (ft_is_space(s[i]))
 		i++;
-	if (!(zero = ft_is_negapositiv(s, &i)))
-		return (0);
+	if (!ft_is_sign(s, &i))
+		return (-1);
+	if (!no_letters(s[i]))
+		return (-1);
 	while (s[i] >= '0' && s[i] <= '9')
 	{
 		digit = s[i] - '0';
 		if (result > (LLONG_MAX - digit) / 10)
 		{
-			printf("Too big NUMBER big boy, hoyoooooo!\n");
-			return (0);
+			printf("Number too large!\n");
+			return (-1);
 		}
 		result = result * 10 + digit;
-		//result += s[i] - '0';
 		i++;
 	}
 	return (result);
 }
 
-int init_philos(t_philo *philo, t_table *table, char **str_arr)
+int	init_forks(t_table *table)
 {
-	if (!(philo->number_of_philosophers = ft_atol(str_arr[1])))
+	int	i;
+
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->num_philos);
+	if (!table->forks)
 		return (0);
-	if (!(table->fork_idx = ft_atol(str_arr[1])))
+	i = 0;
+	while (i < table->num_philos)
+	{
+		if (pthread_mutex_init(&table->forks[i], NULL))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	init_philos(t_table *table)
+{
+	int	i;
+
+	table->philos = malloc(sizeof(t_philo) * table->num_philos);
+	if (!table->philos)
 		return (0);
-	if (!(philo->time_to_die = ft_atol(str_arr[2])))
+	i = 0;
+	while (i < table->num_philos)
+	{
+		table->philos[i].id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].last_meal_time = 0;
+		table->philos[i].table = table;
+		i++;
+	}
+	return (1);
+}
+
+int	init_table(t_table *table, int argc, char **argv)
+{
+	table->num_philos = (int)ft_atol(argv[1]);
+	table->time_to_die = ft_atol(argv[2]);
+	table->time_to_eat = ft_atol(argv[3]);
+	table->time_to_sleep = ft_atol(argv[4]);
+	table->must_eat = -1;
+	table->someone_died = 0;
+	table->all_ate = 0;
+	if (argc == 6)
+		table->must_eat = (int)ft_atol(argv[5]);
+	if (table->num_philos <= 0 || table->time_to_die < 0
+		|| table->time_to_eat < 0 || table->time_to_sleep < 0)
+	{
+		printf("Invalid arguments!\n");
 		return (0);
-	if (!(philo->time_to_eat = ft_atol(str_arr[3])))
+	}
+	if (pthread_mutex_init(&table->print_lock, NULL))
 		return (0);
-	if (!(philo->time_to_sleep = ft_atol(str_arr[4])))
+	if (pthread_mutex_init(&table->death_lock, NULL))
 		return (0);
-	/*philo->number_of_philosophers = 12323;
-	table->fork_idx = 0; 
-	char *s = str_arr[1];
-	printf("error nervt%s\n", s);*/
+	if (pthread_mutex_init(&table->meal_lock, NULL))
+		return (0);
+	if (!init_philos(table))
+		return (0);
+	if (!init_forks(table))
+		return (0);
 	return (1);
 }

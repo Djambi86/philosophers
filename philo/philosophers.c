@@ -6,43 +6,64 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:34 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/02/27 18:29:13 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/07 12:00:00 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
 
-/*
-	we need the following int/chars for this project:
-	int	number_of_philosophers this also tells us how many forks we need, so -> int forks;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
-*/
-
-static void what_args_needed(void)
+static void	what_args_needed(void)
 {
-	printf("Incorrect number of arguments, please give me:\n");
-	printf("number_of_philosophers\ntime_to_die\ntime_to_eat\n");
-	printf("time_to_sleep\n");
-	printf("and optionally - >[number_of_times_each_philosopher_must_eat]\n");
+	printf("Usage: ./philo number_of_philosophers time_to_die ");
+	printf("time_to_eat time_to_sleep ");
+	printf("[number_of_times_each_philosopher_must_eat]\n");
 }
 
-int main(int argc, char **argv)
+static int	start_simulation(t_table *table)
 {
+	int			i;
+	pthread_t	monitor;
+
+	table->start_time = get_time();
+	i = 0;
+	while (i < table->num_philos)
+	{
+		table->philos[i].last_meal_time = table->start_time;
+		if (pthread_create(&table->philos[i].thread, NULL,
+				philo_routine, &table->philos[i]))
+			return (0);
+		i++;
+	}
+	if (pthread_create(&monitor, NULL, monitor_routine, table))
+		return (0);
+	if (pthread_join(monitor, NULL))
+		return (0);
+	i = 0;
+	while (i < table->num_philos)
+	{
+		if (pthread_join(table->philos[i].thread, NULL))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_table	table;
+
 	if (argc < 5 || argc > 6)
 	{
 		what_args_needed();
 		return (1);
 	}
-	// t_philo philo;
-	t_philo philo;
-	t_table table;
-	if (!(init_philos(&philo, &table, argv)))
-		return (0);
-
-	//philo.number_of_philosophers = ft_atol(argv[1]);
-	printf("%lli", philo.number_of_philosophers);	
-	return 120;
+	if (!init_table(&table, argc, argv))
+		return (1);
+	if (!start_simulation(&table))
+	{
+		cleanup(&table);
+		return (1);
+	}
+	cleanup(&table);
+	return (0);
 }
