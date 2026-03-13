@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:44 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/10 18:34:13 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:06:11 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,28 @@ int			is_dead_or_full(t_philo *philo);
 int			no_letters(char c);
 int			ft_is_sign(char *s, int *i);
 int			ft_is_space(char c);
+int			min_num_args(t_table *table);
 
 /* init */
+int			init_table_part2_dilogy(t_table *table, char **argv);
 int			init_table(t_table *table, int argc, char **argv);
 int			init_philos(t_table *table);
 int			init_forks(t_table *table);
-int			no_letters(char c);
-int			ft_is_sign(char *s, int *i);
-int			ft_is_space(char c);
+long long	ft_atol(char *s);
 
 /* utils */
-long long	ft_atol(char *s);
-int			ft_is_space(char c);
 long long	get_time(void);
 void		ft_usleep(long long ms);
 void		print_status(t_philo *philo, char *status);
+void		cleanup(t_table *table);
 
 /* loop */
 void		*philo_routine(void *arg);
 int			philo_eat(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_think(t_philo *philo);
-int			is_dead_or_full(t_philo *philo);
 
 /* monitor */
 void		*monitor_routine(void *arg);
-
-/* cleanup */
-void		cleanup(t_table *table);
 
 #endif
