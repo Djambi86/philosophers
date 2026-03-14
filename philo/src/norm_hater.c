@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:18:16 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/13 21:14:45 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 14:21:33 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	is_dead_or_full(t_philo *philo)
 
 int	min_num_args(t_table *table)
 {
-	if (table->num_philos <= 1)
+	if (table->num_philos < 1)
 	{
-		printf("Need atleast 2 philosophers\n");
+		printf("Need atleast 1 philosophers\n");
 		return (0);
 	}
 	if (table->time_to_die < 40 || table->time_to_eat < 40

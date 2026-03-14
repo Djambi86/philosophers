@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/07 12:00:00 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:09:13 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ void	print_status(t_philo *philo, char *status)
 {
 	long long	timestamp;
 
+	pthread_mutex_lock(&philo->table->print_lock);
 	pthread_mutex_lock(&philo->table->death_lock);
 	if (philo->table->someone_died || philo->table->all_ate)
 	{
 		pthread_mutex_unlock(&philo->table->death_lock);
+		pthread_mutex_unlock(&philo->table->print_lock);
 		return ;
 	}
 	timestamp = get_time() - philo->table->start_time;
-	pthread_mutex_unlock(&philo->table->death_lock);
-	pthread_mutex_lock(&philo->table->print_lock);
 	printf("%lld %d %s\n", timestamp, philo->id, status);
+	pthread_mutex_unlock(&philo->table->death_lock);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
