@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:18:16 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 18:31:49 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 21:21:51 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	init_table(t_table *table, int argc, char **argv)
 	if (argc == 6)
 		table->must_eat = ft_atol(argv[5]);
 	if (table->must_eat == -2)
+		return (0);
+	else if (table->must_eat == 0)
 		return (0);
 	if (!min_num_args(table) || !init_mutexes(table))
 		return (0);

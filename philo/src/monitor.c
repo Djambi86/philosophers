@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 15:21:25 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 21:07:52 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_death(t_table *table, int i)
 	pthread_mutex_lock(&table->meal_lock);
 	time_since_meal = get_time() - table->philos[i].last_meal_time;
 	pthread_mutex_unlock(&table->meal_lock);
-	if (time_since_meal >= table->time_to_die)
+	if (time_since_meal > table->time_to_die)
 	{
 		pthread_mutex_lock(&table->print_lock);
 		pthread_mutex_lock(&table->death_lock);
