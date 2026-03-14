@@ -102,6 +102,7 @@ Here they are:
 	- My Redbull
 	- My lack of sleep
 	- Shower thoughts
+
 To be honest I mostly used Chatgpt so that it explains to me what all these new functions are,
 and how they are used, but sometimes it explained it so difficult
 that I just googled it, and read some thoughts on stackoverflow.
