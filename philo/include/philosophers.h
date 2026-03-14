@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:44 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 15:38:36 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 19:05:50 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int				num_philos;
+	long long		num_philos;
 	long long		time_to_die;
 	long long		time_to_eat;
 	long long		time_to_sleep;
-	int				must_eat;
+	long long		must_eat;
 	int				someone_died;
 	int				all_ate;
 	long long		start_time;
@@ -61,6 +61,12 @@ int			no_letters(char c);
 int			ft_is_sign(char *s, int *i);
 int			ft_is_space(char c);
 int			min_num_args(t_table *table);
+
+/*init_num_part2... cannot believe I had to make a part2,
+							 ALL BECAUSE OF NORMINETTE*/
+void		destroy_forks(pthread_mutex_t *forks, int count);
+int			init_mutexes(t_table *table);
+int			clean_init_fail(t_table *table);
 
 /* init */
 int			init_table_part2_dilogy(t_table *table, char **argv);

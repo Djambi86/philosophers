@@ -6,7 +6,7 @@
 #    By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/26 13:05:44 by dabdulka          #+#    #+#              #
-#    Updated: 2026/03/07 12:00:00 by dabdulka         ###   ########.fr        #
+#    Updated: 2026/03/14 18:03:01 by dabdulka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ SRCS	= philosophers.c \
 		  src/init_num.c \
 		  src/philo_loop.c \
 		  src/monitor.c \
-		  src/utils.c	\
-		  src/norm_hater.c
+		  src/utils.c \
+		  src/norm_hater.c \
+		  src/init_num_part2.c
 
 OBJS	= $(SRCS:.c=.o)
 

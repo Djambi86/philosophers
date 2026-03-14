@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 18:37:01 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 17:47:06 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:44:29 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	philo_eat(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->table->forks[left]);
 		print_status(philo, FORK);
-		ft_usleep(philo->table->time_to_die + 1);
+		while (!is_dead_or_full(philo))
+			ft_usleep(1);
 		pthread_mutex_unlock(&philo->table->forks[left]);
 		return (0);
 	}
@@ -65,7 +66,16 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_think(t_philo *philo)
 {
+	long long	think_time;
+
 	print_status(philo, THINK);
+	think_time = philo->table->time_to_die
+		- philo->table->time_to_eat
+		- philo->table->time_to_sleep;
+	if (think_time < 0)
+		think_time = 0;
+	if (philo->table->num_philos % 2 != 0)
+		ft_usleep(think_time / 2);
 }
 
 void	*philo_routine(void *arg)

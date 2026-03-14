@@ -57,13 +57,13 @@ int	min_num_args(t_table *table)
 {
 	if (table->num_philos < 1)
 	{
-		printf("Need atleast 1 philosophers\n");
+		printf("Need at least 1 philosopher\n");
 		return (0);
 	}
-	if (table->time_to_die < 40 || table->time_to_eat < 40
-		|| table->time_to_sleep < 40)
+	if (table->time_to_die < 1 || table->time_to_eat < 1
+		|| table->time_to_sleep < 1)
 	{
-		printf("Need atleast 40 miliseconds!\n");
+		printf("Time values must be positive\n");
 		return (0);
 	}
 	return (1);

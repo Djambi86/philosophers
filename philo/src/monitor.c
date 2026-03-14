@@ -81,7 +81,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (check_all_ate(table))
 			return (NULL);
-		usleep(500);
+		ft_usleep(1);
 	}
 	return (NULL);
 }
