@@ -81,6 +81,7 @@ Now lets get to instructions
 
 To run this project, firstly go into the philo/ folder, after that just execute Make my fellow comrade.
 Now you can run the program with the following arguments.
+
 ./philosophers	◦ number_of_philosophers: The number of philosophers and also the number
 		of forks.
 		◦ time_to_die (in milliseconds): If a philosopher has not started eating within
