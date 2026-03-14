@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 18:37:01 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 16:04:02 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:47:06 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	philo_eat(t_philo *philo)
 		return (0);
 	}
 	take_forks(philo, left, right);
-	print_status(philo, EAT);
 	pthread_mutex_lock(&philo->table->meal_lock);
 	philo->last_meal_time = get_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->table->meal_lock);
+	print_status(philo, EAT);
 	ft_usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(&philo->table->forks[left]);
 	pthread_mutex_unlock(&philo->table->forks[right]);
