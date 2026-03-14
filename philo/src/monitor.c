@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 21:07:52 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/14 21:37:04 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	*monitor_routine(void *arg)
 		}
 		if (check_all_ate(table))
 			return (NULL);
-		ft_usleep(1);
 	}
 	return (NULL);
 }
