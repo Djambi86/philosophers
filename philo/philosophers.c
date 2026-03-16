@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:34 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 19:11:09 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/16 00:00:00 by oai               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 	{
 		what_args_needed();
-		return (0);
+		return (1);
 	}
 	if (!init_table(&table, argc, argv))
-		return (0);
+		return (1);
 	if (!start_simulation(&table))
 	{
 		cleanup(&table);
-		return (0);
+		return (1);
 	}
 	cleanup(&table);
-	return (1);
+	return (0);
 }

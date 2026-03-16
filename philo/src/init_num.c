@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:18:16 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 21:21:51 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/16 00:00:00 by oai               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ long long	ft_atol(char *s)
 		}
 		result = result * 10 + digit;
 		i++;
+	}
+	while (ft_is_space(s[i]))
+		i++;
+	if (s[i] != '\0')
+	{
+		printf("No letters allowed!\n");
+		return (-2);
 	}
 	return (result);
 }
