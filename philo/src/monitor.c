@@ -5,26 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/07 12:00:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/16 00:00:00 by oai               ###   ########.fr       */
+/*   Created: 2026/03/16 21:49:15 by dabdulka          #+#    #+#             */
+/*   Updated: 2026/03/16 23:18:55 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
-
-static int	should_die(t_table *table, long long time_since_meal)
-{
-	long long	cycle_time;
-
-	if (time_since_meal >= table->time_to_die)
-		return (1);
-	if (table->num_philos % 2 == 0 || table->num_philos == 1)
-		return (0);
-	cycle_time = (table->time_to_eat * 2) + table->time_to_sleep;
-	if (table->time_to_die < cycle_time && time_since_meal >= table->time_to_die)
-		return (1);
-	return (0);
-}
 
 static int	check_death(t_table *table, int i)
 {
@@ -33,7 +19,7 @@ static int	check_death(t_table *table, int i)
 	pthread_mutex_lock(&table->meal_lock);
 	time_since_meal = get_time() - table->philos[i].last_meal_time;
 	pthread_mutex_unlock(&table->meal_lock);
-	if (should_die(table, time_since_meal))
+	if (time_since_meal >= table->time_to_die)
 	{
 		pthread_mutex_lock(&table->print_lock);
 		pthread_mutex_lock(&table->death_lock);
@@ -95,6 +81,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (check_all_ate(table))
 			return (NULL);
+		usleep(1);
 	}
 	return (NULL);
 }

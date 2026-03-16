@@ -77,7 +77,7 @@ long long	ft_atol(char *s);
 
 /* utils */
 long long	get_time(void);
-void		ft_usleep(long long ms);
+void		ft_usleep(long long ms, t_philo *philo);
 void		print_status(t_philo *philo, char *status);
 void		cleanup(t_table *table);
 

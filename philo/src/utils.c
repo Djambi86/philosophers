@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 20:45:55 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:44:02 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,25 @@ long long	get_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_usleep(long long ms)
+void	ft_usleep(long long ms, t_philo *philo)
 {
 	long long	start;
 
 	start = get_time();
 	while ((get_time() - start) < ms)
+	{
+		if (philo)
+		{
+			pthread_mutex_lock(&philo->table->death_lock);
+			if (philo->table->someone_died || philo->table->all_ate)
+			{
+				pthread_mutex_unlock(&philo->table->death_lock);
+				return ;
+			}
+			pthread_mutex_unlock(&philo->table->death_lock);
+		}
 		usleep(100);
+	}
 }
 
 void	print_status(t_philo *philo, char *status)
@@ -52,16 +64,18 @@ void	cleanup(t_table *table)
 	int	i;
 
 	i = 0;
-	while (i < table->num_philos)
+	if (table->forks)
 	{
-		pthread_mutex_destroy(&table->forks[i]);
-		i++;
+		while (i < table->num_philos)
+		{
+			pthread_mutex_destroy(&table->forks[i]);
+			i++;
+		}
+		free(table->forks);
 	}
 	pthread_mutex_destroy(&table->print_lock);
 	pthread_mutex_destroy(&table->death_lock);
 	pthread_mutex_destroy(&table->meal_lock);
-	if (table->forks)
-		free(table->forks);
 	if (table->philos)
 		free(table->philos);
 }

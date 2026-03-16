@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 18:37:01 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 20:13:30 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/16 23:04:42 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	philo_eat(t_philo *philo)
 		pthread_mutex_lock(&philo->table->forks[left]);
 		print_status(philo, FORK);
 		while (!is_dead_or_full(philo))
-			ft_usleep(1);
+			ft_usleep(1, philo);
 		pthread_mutex_unlock(&philo->table->forks[left]);
 		return (0);
 	}
@@ -52,7 +52,7 @@ int	philo_eat(t_philo *philo)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->table->meal_lock);
 	print_status(philo, EAT);
-	ft_usleep(philo->table->time_to_eat);
+	ft_usleep(philo->table->time_to_eat, philo);
 	pthread_mutex_unlock(&philo->table->forks[left]);
 	pthread_mutex_unlock(&philo->table->forks[right]);
 	return (1);
@@ -61,7 +61,7 @@ int	philo_eat(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	print_status(philo, SLEEP);
-	ft_usleep(philo->table->time_to_sleep);
+	ft_usleep(philo->table->time_to_sleep, philo);
 }
 
 void	philo_think(t_philo *philo)
@@ -73,9 +73,9 @@ void	philo_think(t_philo *philo)
 		- philo->table->time_to_eat
 		- philo->table->time_to_sleep;
 	if (think_time < 0)
-		think_time = 0;
+		think_time = 100;
 	if (philo->table->num_philos % 2 != 0)
-		ft_usleep(think_time / 2);
+		ft_usleep(think_time / 2, philo);
 }
 
 void	*philo_routine(void *arg)
@@ -84,7 +84,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->table->time_to_eat / 2);
+		ft_usleep(philo->table->time_to_eat / 2, philo);
 	while (!is_dead_or_full(philo))
 	{
 		if (!philo_eat(philo))
