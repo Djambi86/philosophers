@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 18:37:01 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/17 20:51:57 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:55:55 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	philo_think(t_philo *philo)
 		- philo->table->time_to_eat
 		- philo->table->time_to_sleep;
 	if (think_time < 0)
-		think_time = 100;
+		think_time = 0;
 	if (philo->table->num_philos % 2 != 0)
 		ft_usleep(think_time / 2, philo);
 }
