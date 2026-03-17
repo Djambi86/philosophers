@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/16 22:44:02 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:19:14 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,14 @@ void	cleanup(t_table *table)
 	pthread_mutex_destroy(&table->meal_lock);
 	if (table->philos)
 		free(table->philos);
+}
+
+int	check_overflow(long long result, char c)
+{
+	if (result > (LLONG_MAX - (c - '0')) / 10)
+	{
+		printf("Number too large!\n");
+		return (0);
+	}
+	return (1);
 }

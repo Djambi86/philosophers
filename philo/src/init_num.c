@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 21:49:00 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/16 22:39:08 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:21:37 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ long long	ft_atol(char *s)
 {
 	int			i;
 	long long	result;
-	int			digit;
 
 	result = 0;
 	i = 0;
@@ -28,15 +27,15 @@ long long	ft_atol(char *s)
 		return (-2);
 	while (s[i] >= '0' && s[i] <= '9')
 	{
-		digit = s[i] - '0';
-		if (result > (LLONG_MAX - digit) / 10)
-		{
-			printf("Number too large!\n");
+		if (!check_overflow(result, s[i]))
 			return (-2);
-		}
-		result = result * 10 + digit;
+		result = result * 10 + (s[i] - '0');
 		i++;
 	}
+	while (ft_is_space(s[i]))
+		i++;
+	if (s[i] != '\0')
+		return (printf("No letters allowed!\n"), -2);
 	return (result);
 }
 

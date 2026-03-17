@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:44 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 19:05:50 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:16:58 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ long long	get_time(void);
 void		ft_usleep(long long ms, t_philo *philo);
 void		print_status(t_philo *philo, char *status);
 void		cleanup(t_table *table);
+int			check_overflow(long long result, char c);
 
 /* loop */
 void		*philo_routine(void *arg);
