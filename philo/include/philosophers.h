@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:05:44 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/17 21:16:58 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/20 20:51:45 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int			min_num_args(t_table *table);
 void		destroy_forks(pthread_mutex_t *forks, int count);
 int			init_mutexes(t_table *table);
 int			clean_init_fail(t_table *table);
+void		eat_unlock(t_philo *philo);
 
 /* init */
 int			init_table_part2_dilogy(t_table *table, char **argv);

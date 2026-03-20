@@ -6,7 +6,7 @@
 /*   By: dabdulka <dabdulka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 18:04:53 by dabdulka          #+#    #+#             */
-/*   Updated: 2026/03/14 18:22:11 by dabdulka         ###   ########.fr       */
+/*   Updated: 2026/03/20 20:52:29 by dabdulka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ int	clean_init_fail(t_table *table)
 	pthread_mutex_destroy(&table->death_lock);
 	pthread_mutex_destroy(&table->meal_lock);
 	return (0);
+}
+
+void	eat_unlock(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->meal_lock);
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->table->meal_lock);
 }
